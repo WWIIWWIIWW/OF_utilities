@@ -13,3 +13,10 @@
 (e) runTimeReconstructPar - runTimeReconstrct cases.
 
 Email: Kai.Zhang.1@city.ac.uk; kaizhang@kth.se
+
+
+## Citations of lowMach solver:
+
+Duwig, Christophe, Sébastien Ducruix, and Denis Veynante. "Studying the Stabilization Dynamics of Swirling Partially Premixed Flames by Proper Orthogonal Decomposition." Journal of Engineering for Gas Turbines and Power 134 (2012): 101501.
+
+Duwig, Christophe, et al. "Large Eddy Simulations of a piloted lean premix jet flame using finite-rate chemistry." Combustion Theory and Modelling 15.4 (2011): 537-568.
