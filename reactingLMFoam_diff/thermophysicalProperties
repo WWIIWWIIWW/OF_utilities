@@ -1,0 +1,63 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  5                                     |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      thermophysicalProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+thermoType
+{
+    type            hePsiThermo;
+    mixture         reactingMixture;
+    transport       sutherland;
+    thermo          janaf;
+    energy          sensibleEnthalpy;
+    equationOfState perfectGas;
+    specie          specie;
+}
+
+inertSpecie N2;
+
+Sct 0.7; //turbulent Schmidt number
+
+multiComponent true; //https://charlesreid1.com/wiki/Cantera/Diffusion
+
+nonUnitySc false;
+
+Dij //Binary diffusion coefficient obtained from cantera at flame front
+{
+O2  (0.00049364 0.0006602  0.00054447 0.00048741 0.0003947  0.00049176);
+H2O  (0.0006602  0.00078747 0.0006829  0.00064154 0.00052566 0.00064813);
+CH4  (0.00054447 0.0006829  0.00056813 0.00053282 0.00044772 0.0005374);
+CO  (0.00048741 0.00064154 0.00053282 0.00048091 0.00039273 0.00048507);
+CO2  (0.0003947  0.00052566 0.00044772 0.00039273 0.00031159 0.0003961);
+N2  (0.00049176 0.00064813 0.0005374  0.00048507 0.0003961  0.00048933);
+};
+Sc
+{
+O2   0.7;
+H2O  0.7;
+CH4  0.7;
+CO   0.7;
+CO2  0.7;
+N2   0.7;
+};
+
+chemistryReader chemkinReader;
+CHEMKINFile "$FOAM_CASE/mechanisms/BFER_mech.dat";
+CHEMKINThermoFile "$FOAM_CASE/mechanisms/BFER_thermo.dat";
+CHEMKINTransportFile "$FOAM_CASE/mechanisms/BFER_tran.dat";
+
+
+
+// ************************************************************************* //

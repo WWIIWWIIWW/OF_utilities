@@ -1,0 +1,57 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  5                                     |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+
+runTimeReconstructPar
+{ 
+    type coded;
+    redirectType       runTimeReconstructPar;
+    functionObjectLibs ("libutilityFunctionObjects.so"); 
+    writeControl       outputTime;
+
+    cleanDecomposed    true;//true;
+    fields             "all";//"(p U)";
+
+    codeData
+    #{
+        bool cleanDecomposed_;
+        string fields_;
+        string time_;
+        string lasttime_;
+    #};
+
+    codeRead
+    #{
+        cleanDecomposed_ = dict.lookupOrDefault<Switch>("cleanDecomposed", false);        
+        fields_   = dict.lookupOrDefault<string>("fields", "all");
+        time_ = "empty";
+        lasttime_ = "empty";
+    #};
+
+    codeExecute
+    #{
+        Info<< "Executing runTimeReconstructPar!" << endl;
+        lasttime_ = time_;
+        time_ = mesh().time().timeName();
+
+        if( fields_ == "all")
+        {
+            if (cleanDecomposed_)
+            {
+                system("reconstructPar -time " + time_ + " && rm -rf processor*/" + lasttime_);
+            }
+            else
+            {
+                system("reconstructPar -time " + time_);
+            }
+        }
+        else
+        {
+            system("reconstructPar -time " + time_ + " -fields " + fields_);
+        }
+    #};
+}
