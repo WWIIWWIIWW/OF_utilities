@@ -12,11 +12,17 @@
 
 (e) runTimeReconstructPar - runTimeReconstrct cases.
 
+(f) reactingLMFoam_TFM - low Mach reactingFoam solver with Thickend Flame Model implemented.
+
 Email: Kai.Zhang.1@city.ac.uk; kaizhang@kth.se
 
 
-## Citations of lowMach solver:
+## We kindly ask you to cite the following paper if you are using lowMach solver:
 
-Duwig, Christophe, Sébastien Ducruix, and Denis Veynante. "Studying the Stabilization Dynamics of Swirling Partially Premixed Flames by Proper Orthogonal Decomposition." Journal of Engineering for Gas Turbines and Power 134 (2012): 101501.
+Zhang, K., Shen, Y.Z., Duwig, C., 2021. Finite rate simulations and analyses of wet/distributed flame structure in swirl-stabilized combustion. Fuel, 289, pp.119922
 
-Duwig, Christophe, et al. "Large Eddy Simulations of a piloted lean premix jet flame using finite-rate chemistry." Combustion Theory and Modelling 15.4 (2011): 537-568.
+Zhang, K., Dybe, S., Shen, Y., Schimek, S., Paschereit, C.O. and Duwig, C., 2020. Experimental and Numerical Investigation of Ultra-Wet Methane Combustion Technique for Power Generation. Journal of Engineering for Gas Turbines and Power.
+
+Duwig, C., Ducruix, S. and Veynante, D., 2012. Studying the stabilization dynamics of swirling partially premixed flames by proper orthogonal decomposition. Journal of Engineering for Gas Turbines and Power, 134(10).
+
+Duwig, C., Nogenmyr, K.J., Chan, C.K. and Dunn, M.J., 2011. Large eddy simulations of a piloted lean premix jet flame using finite-rate chemistry. Combustion Theory and Modelling, 15(4), pp.537-568.
