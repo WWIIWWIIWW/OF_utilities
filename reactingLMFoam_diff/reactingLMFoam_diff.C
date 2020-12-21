@@ -22,11 +22,12 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Application
-    reactingLMKsgsFoam
+    reactingLMFoam
 
 Description
     Solver for low Mach number flows with chemical reactions. Writes Ksgs.
-    Added two ways for correcting diffusion term
+    Added two ways for correcting diffusion term by kai.zhang.1@city.ac.uk
+
 \*---------------------------------------------------------------------------*/
 
 #include "fvCFD.H"

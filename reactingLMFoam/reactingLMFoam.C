@@ -22,11 +22,11 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Application
-    reactingLMKsgsFoam
+    reactingLMFoam
 
 Description
     Solver for low Mach number flows with chemical reactions. 
-    Writes ksgs, ROP_, Yo, Yh, Yc, Z
+    Writes ksgs, ROP_, Yo, Yh, Yc, Z by kai.zhang.1@city.ac.uk
 
 \*---------------------------------------------------------------------------*/
 
