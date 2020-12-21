@@ -2,7 +2,7 @@ rho = thermo.rho();
 
 volScalarField rAU(1.0/UEqn.A());
 surfaceScalarField rhorAUf("rhorAUf", fvc::interpolate(rho*rAU));
-volVectorField HbyA(constrainHbyA(rAU*UEqn.H(), U, pd)); // UNSURE IF pd OR p HERE!!!
+volVectorField HbyA(constrainHbyA(rAU*UEqn.H(), U, pd));
 
 if (pimple.nCorrPISO() <= 1)
 {
@@ -21,7 +21,7 @@ surfaceScalarField phiHbyA
 MRF.makeRelative(fvc::interpolate(rho), phiHbyA);
 
 // Update the pressure BCs to ensure flux consistency
-constrainPressure(pd, rho, U, phiHbyA, rhorAUf, MRF); // UNSURE IF pd OR p HERE!!!
+constrainPressure(pd, rho, U, phiHbyA, rhorAUf, MRF);
 
 while (pimple.correctNonOrthogonal())
 {
@@ -51,11 +51,4 @@ pd.relax();
 U = HbyA - rAU*fvc::grad(pd);
 U.correctBoundaryConditions();
 fvOptions.correct(U);
-
-/*
-if (pressureControl.limit(pd))
-{
-    pd.correctBoundaryConditions();
-    rho = thermo.rho();
-}
-*/
+=

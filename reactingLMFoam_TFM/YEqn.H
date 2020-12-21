@@ -14,7 +14,7 @@ tmp<fv::convectionScheme<scalar>> mvConvection
     reaction->correct();
     Qdot = reaction->Qdot() * E/F;;
     volScalarField Yt(0.0*Y[0]);
-    //Sensor to detect the flame region for thickening
+
     flame_sensor = tanh(100*mag(Qdot)/maxQdot);
 
     F = 1 + (F-1)*flame_sensor;

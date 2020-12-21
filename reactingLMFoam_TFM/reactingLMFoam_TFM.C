@@ -22,10 +22,11 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Application
-    reactingLMKsgsFoam
+    reactingLMFoam_TFM
 
 Description
-    Solver for low Mach number flows with chemical reactions. Writes Ksgs.
+    Solver for low Mach number flows with chemical reactions.
+    Thickened Flame Model implemented by kai.zhang.1@city.ac.uk
 
 \*---------------------------------------------------------------------------*/
 
@@ -54,7 +55,7 @@ int main(int argc, char *argv[])
     #include "initContinuityErrs.H"
     #include "createFields.H"
     #include "createFieldRefs.H"
-    #include "readControl.H" //new
+    #include "readControl.H"
 
     turbulence->validate();
 
@@ -116,9 +117,6 @@ int main(int argc, char *argv[])
         ksgs_ = turbulence->k();
         rho = thermo.rho();
         runTime.write();
-
-        //mu_output = turbulence->mu();
-        //cp_output = thermo.Cp();
 
         Info<< "ExecutionTime = " << runTime.elapsedCpuTime() << " s"
             << "  ClockTime = " << runTime.elapsedClockTime() << " s"

@@ -107,7 +107,6 @@ p.relax();
 U = HbyA - rAtU*fvc::grad(p);
 U.correctBoundaryConditions();
 fvOptions.correct(U);
-//K = 0.5*magSqr(U); // REMOVED TO BE ABLE TO COMPILE BUT pcEqn should never be used
 
 if (pressureControl.limit(p))
 {

@@ -105,21 +105,7 @@ volScalarField E
     mesh,
     dimensionedScalar("E", dimless, 0.0)
 );
-/*
-volScalarField K
-(
-    IOobject
-    (
-        "K",
-        runTime.timeName(),
-        mesh,
-        IOobject::MUST_READ,
-        IOobject::AUTO_WRITE
-    ),
-    mesh
-);
-*/
-//Flame Thickening variable
+
 volScalarField F
 (
     IOobject
@@ -134,7 +120,7 @@ volScalarField F
     dimensionedScalar("F", dimless, 1.0)
 );
 
-//Flame Sensor
+
 volScalarField flame_sensor
 (
     IOobject
