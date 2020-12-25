@@ -12,10 +12,11 @@ tmp<fv::convectionScheme<scalar>> mvConvection
 {
     #include "calThickingFactor.H"
     reaction->correct();
-    Qdot = reaction->Qdot() * E/F;;
-    volScalarField Yt(0.0*Y[0]);
-
+    Qdot = reaction->Qdot();
     flame_sensor = tanh(100*mag(Qdot)/maxQdot);
+
+    Qdot *= E/F;
+    volScalarField Yt(0.0*Y[0]);
 
     F = 1 + (F-1)*flame_sensor;
     E = 1 + (E-1)*flame_sensor;
