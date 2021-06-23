@@ -149,5 +149,71 @@ volScalarField Qdot
     dimensionedScalar("Qdot", dimEnergy/dimVolume/dimTime, 0.0)
 );
 
+volScalarField Yc
+(
+    IOobject
+    (
+        "Yc",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::AUTO_WRITE
+    ),
+    mesh,
+    dimensionedScalar("zero", dimless, 0.0)
+);
+volScalarField Yh
+(
+    IOobject
+    (
+        "Yh",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::AUTO_WRITE
+    ),
+    mesh,
+    dimensionedScalar("zero", dimless, 0.0)
+);
+volScalarField Yo
+(
+    IOobject
+    (
+        "Yo",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::AUTO_WRITE
+    ),
+    mesh,
+    dimensionedScalar("zero", dimless, 0.0)
+);
+
+volScalarField Z
+(
+    IOobject
+    (
+        "Z",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::AUTO_WRITE
+    ),
+    mesh,
+    dimensionedScalar("Z", dimless, 0.0)
+);
+
+IOdictionary mixtureFractionDict
+(
+    IOobject
+    (
+        "mixtureFractionDict",
+        mesh.time().constant(),
+        mesh,
+        IOobject::MUST_READ,
+        IOobject::NO_WRITE
+    )
+);
+#include "readControl.H"
 #include "createMRF.H"
 #include "createFvOptions.H"

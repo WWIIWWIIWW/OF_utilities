@@ -22,11 +22,11 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Application
-    reactingLMFoam_TFM
+    reactingLMFoam
 
 Description
-    Solver for low Mach number flows with chemical reactions.
-    Thickened Flame Model implemented by kai.zhang.1@city.ac.uk
+    Solver for low Mach number flows with chemical reactions. 
+    Writes ksgs, ROP_, Yo, Yh, Yc, Z by kai.zhang.1@city.ac.uk
 
 \*---------------------------------------------------------------------------*/
 
@@ -40,6 +40,7 @@ Description
 #include "fvOptions.H"
 #include "localEulerDdtScheme.H"
 #include "fvcSmooth.H"
+#include "chemkinReader.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -55,7 +56,7 @@ int main(int argc, char *argv[])
     #include "initContinuityErrs.H"
     #include "createFields.H"
     #include "createFieldRefs.H"
-    #include "readControl.H"
+
 
     turbulence->validate();
 
@@ -114,9 +115,15 @@ int main(int argc, char *argv[])
             }
         }
 
+        #include "CalMixtureFraction.H"
         ksgs_ = turbulence->k();
         rho = thermo.rho();
         runTime.write();
+
+        forAll(Y, i)
+        {
+            ROP_[i].field() = -(reaction->R(Y[i])()).source()/mesh.V();
+        }
 
         Info<< "ExecutionTime = " << runTime.elapsedCpuTime() << " s"
             << "  ClockTime = " << runTime.elapsedClockTime() << " s"

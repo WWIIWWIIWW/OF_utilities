@@ -4,7 +4,7 @@
 
 (a) CalcMixtureFraction: Postprocess mixture fraction.
 
-(b) reactingLMFoam - low Mach reactingFoam solver with runTime mixture fraction calculation and some extra outputs.
+(b) reactingLMFoam_Z - low Mach reactingFoam solver with runTime mixture fraction calculation and some extra outputs.
 
 (c) reactingLMFoam_diff - low Mach reactingFoam solver with diffusion term changed: mixture averaged method and non-Unity Schmidt number methhod. 
 

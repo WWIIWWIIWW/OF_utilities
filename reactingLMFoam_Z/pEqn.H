@@ -2,8 +2,7 @@ rho = thermo.rho();
 
 volScalarField rAU(1.0/UEqn.A());
 surfaceScalarField rhorAUf("rhorAUf", fvc::interpolate(rho*rAU));
-volVectorField HbyA(constrainHbyA(rAU*UEqn.H(), U, pd)); 
-
+volVectorField HbyA(constrainHbyA(rAU*UEqn.H(), U, pd));
 if (pimple.nCorrPISO() <= 1)
 {
     tUEqn.clear();
@@ -51,4 +50,3 @@ pd.relax();
 U = HbyA - rAU*fvc::grad(pd);
 U.correctBoundaryConditions();
 fvOptions.correct(U);
-

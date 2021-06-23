@@ -10,20 +10,8 @@ tmp<fv::convectionScheme<scalar>> mvConvection
 );
 
 {
-    #include "calThickingFactor.H"
     reaction->correct();
     Qdot = reaction->Qdot();
-    flame_sensor = tanh(100*mag(Qdot)/maxQdot);
-
-    F = 1 + (F-1)*flame_sensor;
-    E = 1 + (E-1)*flame_sensor;
-
-    kappaTFM = E / F;
-
-    Info<< "min/max(kappaTFM) = "
-        << min(kappaTFM).value() << ", " << max(kappaTFM).value() << endl;
-
-    Qdot *= E/F;
     volScalarField Yt(0.0*Y[0]);
 
     forAll(Y, i)
@@ -36,10 +24,9 @@ tmp<fv::convectionScheme<scalar>> mvConvection
             (
                 fvm::ddt(rho, Yi)
               + mvConvection->fvmDiv(phi, Yi)
-              - fvm::laplacian((1-flame_sensor)*turbulence->muEff(), Yi)
-              - fvm::laplacian(E*F*turbulence->alpha(), Yi) 
+              - fvm::laplacian(turbulence->muEff(), Yi)
              ==
-                E / F * reaction->R(Yi)
+                reaction->R(Yi)
               + fvOptions(rho, Yi)
             );
 
