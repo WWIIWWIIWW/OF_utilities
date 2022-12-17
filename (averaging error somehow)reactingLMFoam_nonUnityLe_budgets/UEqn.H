@@ -1,0 +1,24 @@
+// Solve the Momentum equation
+
+MRF.correctBoundaryVelocity(U);
+
+tmp<fvVectorMatrix> tUEqn
+(
+    fvm::ddt(rho, U) + fvm::div(phi, U)
+  + MRF.DDt(rho, U)
+  + turbulence->divDevRhoReff(U)//   divDevRhoReff(U) =    - fvm::laplacian(this->alpha_*this->rho_*this->nuEff(), U) - fvc::div((this->alpha_*this->rho_*this->nuEff())*dev2(T(fvc::grad(U))))
+ ==
+    fvOptions(rho, U)
+);
+fvVectorMatrix& UEqn = tUEqn.ref();
+
+UEqn.relax();
+
+fvOptions.constrain(UEqn);
+
+if (pimple.momentumPredictor())
+{
+    solve(UEqn == -fvc::grad(pd));
+
+    fvOptions.correct(U);
+}

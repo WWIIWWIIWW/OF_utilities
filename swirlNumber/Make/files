@@ -1,0 +1,3 @@
+swirlNumber.C
+
+LIB = $(FOAM_USER_LIBBIN)/libswirlNumber
