@@ -1,0 +1,19 @@
+# lnInclude (symlink) directories - anywhere
+lnInclude
+
+# Objects and archives - anywhere
+*.[oa]
+*.la
+*.so
+
+# Dependency files - anywhere
+*.dep
+
+
+# Build directories - anywhere
+linux*Clang*/
+linux*Gcc*/
+linux*Icc*/
+solaris*Gcc*/
+SunOS*Gcc*/
+platforms/

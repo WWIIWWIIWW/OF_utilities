@@ -1,3 +1,0 @@
-myWallNu_rho.C
-
-LIB = $(FOAM_USER_LIBBIN)/libNu_rho
