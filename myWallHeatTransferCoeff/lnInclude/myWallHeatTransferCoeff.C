@@ -1,1 +1,0 @@
-../myWallHeatTransferCoeff.C

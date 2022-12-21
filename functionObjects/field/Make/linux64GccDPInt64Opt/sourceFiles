@@ -1,5 +1,0 @@
-SOURCE = \
-fieldValues/fieldValue/fieldValue.C \
-fieldValues/fieldValue/fieldValueNew.C \
-fieldValues/fieldValueDelta/fieldValueDelta.C \
-fieldValues/volFieldValue/volFieldValue.C 
