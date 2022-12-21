@@ -17,3 +17,4 @@ linux*Icc*/
 solaris*Gcc*/
 SunOS*Gcc*/
 platforms/
+/.idea/
