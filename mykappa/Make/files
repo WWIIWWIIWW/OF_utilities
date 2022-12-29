@@ -1,0 +1,3 @@
+mykappa.C
+
+LIB = $(FOAM_USER_LIBBIN)/libkappa

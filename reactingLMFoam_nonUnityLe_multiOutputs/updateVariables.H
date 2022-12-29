@@ -11,7 +11,7 @@ musgs_      = turbulence->mu();
 nusgs_      = turbulence->nu();
 alphasgs_   = turbulence->alpha();
 Cp_         = thermo.Cp();
-
+tau_chemRR  = chem.tc();
 #include "LESResIndex.H"
 
 //write below if not AUTO_WRITE

@@ -2,7 +2,7 @@
   =========                 |
   \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
    \\    /   O peration     | Website:  https://openfoam.org
-    \\  /    A nd           | Copyright (C) 2016-2019 OpenFOAM Foundation
+    \\  /    A nd           | Copyright (C) 2013-2018 OpenFOAM Foundation
      \\/     M anipulation  |
 -------------------------------------------------------------------------------
 License
@@ -22,45 +22,45 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Class
-    Foam::functionObjects::myWallNu
+    Foam::functionObjects::mykappa
 
-Description
-    Calculates and write the HTC based on a fixed reference temperature
-
-    \f[
-            h = \frac{q}{T_{ref} - T_W}
-    \f]
-
-    at wall patches as the volScalarField field 'myWallNu'.
-
-    All wall patches are included by default; to restrict the calculation to
-    certain patches, use the optional 'patches' entry.
+Description (under development, the version does not apply to other cases except the jet one we have)
+    Evaluates and outputs kappa = (1/(1+Da)) 
+    - Da = tau_mix/tau_c, if tau_mix<<tau_c, kappa~1, we well resolve near-wall chemistry.
+    - tau_mix = mixing time scale = (cell size in wall normal direction)^2 / effective thermal diffusivity. (or mass diffusivty if Preff = 1)
+    -tau_c = chemical time scale based on tc in:
+        https://www.openfoam.com/documentation/guides/latest/api/PaSR_8C_source.html
+    
+    Values written to time directories as field 'mykappa'.
 
     Example of function object specification:
     \verbatim
-    myWallNu1
+    kappa
     {
-        type        myWallNu;
-        libs        ("libfieldFunctionObjects.so");
+        type            mykappa;
+        libs            ( "libkappa.so" );
         ...
-        Tref        293;
-        region      fluid;
-        patches     (".*Wall");
     }
     \endverbatim
 
 Usage
     \table
-        Property | Description                        | Required   | Default value
-        type     | type name: myWallNu | yes          |
-        Tref     | reference temperature              | no         | 0
-        Lref     | reference Length scalr             | no         | 1
-        patches  | list of patches to process         | no         | all wall patches
-        region   | region to be evaluated             | no         | default region
+        Property | Description                | Required   | Default value
+        type     | type name: mykappa           | yes        |
     \endtable
+    
+    // wallDist dic must be added to fvSchemes (not necessary, 
+    but the code was planned to calculate wallDist, so used))
+    wallDist
+    {
+    method          meshWave;
+
+        // Optionally correct distance from near-wall cells to the boundary
+        correctWalls    true;
+    }
 
 Note
-    Writing field 'myWallNu' is done by default, but it can be overridden by
+    Writing field 'mykappa' is done by default, but it can be overridden by
     defining an empty \c objects list. For details see writeLocalObjects.
 
 See also
@@ -71,108 +71,90 @@ See also
     Foam::functionObjects::timeControl
 
 SourceFiles
-    myWallNu.C
+    mykappa.C
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef functionObjects_myWallNu_H
-#define functionObjects_myWallNu_H
+#ifndef functionObjects_mykappa_H
+#define functionObjects_mykappa_H
 
 #include "fvMeshFunctionObject.H"
 #include "logFiles.H"
 #include "writeLocalObjects.H"
-#include "HashSet.H"
 #include "volFieldsFwd.H"
+
+#include "HashSet.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 namespace Foam
 {
+
 namespace functionObjects
 {
 
 /*---------------------------------------------------------------------------*\
-                       Class myWallNu Declaration
+                          Class mykappa Declaration
 \*---------------------------------------------------------------------------*/
 
-class myWallNu
+class mykappa
 :
     public fvMeshFunctionObject,
     public logFiles,
     public writeLocalObjects
 {
-    // Private Data
-
-    //- Optional Tref (default is 0)
-    scalar Tref;
-
-    //- Optional Tref (default is 0)
-    scalar Lref;
-    
-protected:
-
-    // Protected data
-
-        //- Optional list of patches to process
-        labelHashSet patchSet_;
-
-
-    // Protected Member Functions
+    // Private Member Functions
 
         //- File header information
         virtual void writeFileHeader(const label i);
 
-        //- Calculate the HTC
-        tmp<volScalarField> calcmyWallNu
+        //- Calculate y+
+        tmp<volScalarField> calcmykappa
         (
             const volScalarField& alpha,
-            const volScalarField& he,
-            const volScalarField& T,
-            const volScalarField& kappa,
-            scalar Tref
+            const volScalarField& rho,
+            const volScalarField& tau_chemRR,
+            const volScalarField& delta_
         );
+
+        //- Disallow default bitwise copy construct
+        mykappa(const mykappa&);
+
+        //- Disallow default bitwise assignment
+        void operator=(const mykappa&);
 
 
 public:
 
     //- Runtime type information
-    TypeName("myWallNu");
+    TypeName("mykappa");
 
 
     // Constructors
 
         //- Construct from Time and dictionary
-        myWallNu
+        mykappa
         (
             const word& name,
             const Time& runTime,
-            const dictionary&
+            const dictionary& dict
         );
-
-        //- Disallow default bitwise copy construction
-        myWallNu(const myWallNu&) = delete;
 
 
     //- Destructor
-    virtual ~myWallNu();
+    virtual ~mykappa();
 
 
     // Member Functions
 
-        //- Read the myWallNu data
+        //- Read the mykappa data
         virtual bool read(const dictionary&);
 
-        //- Calculate the wall HTC
+        //- Calculate the mykappa field
         virtual bool execute();
 
-        //- Write the wall HTC
+        //- Write the mykappa field
         virtual bool write();
-
-
-    // Member Operators
-
-        //- Disallow default bitwise assignment
-        void operator=(const myWallNu&) = delete;
 };
 
 

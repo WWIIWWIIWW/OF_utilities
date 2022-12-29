@@ -217,4 +217,22 @@ for (label i=0; i<Ysize; i++)
 }
 
 
+autoPtr<BasicChemistryModel<psiReactionThermo>> tempChem
+(
+    BasicChemistryModel<psiReactionThermo>::New(thermo)
+);
+BasicChemistryModel<psiReactionThermo>& chem = tempChem();
+
+volScalarField tau_chemRR
+(
+    IOobject
+    (
+        "tau_chemRR",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::AUTO_WRITE
+    ),
+    chem.tc()
+);
 

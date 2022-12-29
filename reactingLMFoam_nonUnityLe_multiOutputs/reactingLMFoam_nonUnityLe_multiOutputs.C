@@ -42,7 +42,7 @@ Description
 #include "localEulerDdtScheme.H"
 #include "fvcSmooth.H"
 #include "chemkinReader.H"
-
+#include "BasicChemistryModel.H"
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 int main(int argc, char *argv[])

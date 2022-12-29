@@ -1,3 +1,0 @@
-myWallNu.C
-
-LIB = $(FOAM_USER_LIBBIN)/libNu
