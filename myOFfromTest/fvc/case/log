@@ -1,0 +1,39 @@
+/*---------------------------------------------------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  6
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+Build  : 6-47517f2ebb1b
+Exec   : fvc
+Date   : Feb 07 2023
+Time   : 14:36:47
+Host   : "kai"
+PID    : 6515
+I/O    : uncollated
+Case   : /media/kai/NewDisk/kai/git/Python_utilities/fvc/case
+nProcs : 1
+sigFpe : Enabling floating point exception trapping (FOAM_SIGFPE).
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 10)
+allowSystemOperations : Allowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Create mesh for time = 0
+
+dimensions      [0 1 0 0 0 0 0];
+
+internalField   uniform (0.5 0.5 0.5);
+
+boundaryField
+{
+    my_cube_faces
+    {
+        type            sliced;
+        value           nonuniform List<vector> 6((0.5 0.5 0) (0 0.5 0.5) (0.5 0 0.5) (1 0.5 0.5) (0.5 1 0.5) (0.5 0.5 1));
+    }
+}
+
+end

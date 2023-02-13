@@ -1,0 +1,8 @@
+    	
+        //forAll (radialUnitVector.internalField(), celli)
+        //{
+        //    radialUnitVector[celli] = mesh.C()[celli];
+        //    radialUnitVector[celli].component(vector::X) = 0; //set x = 0
+        //    //Info <<mag(radialUnitVector[celli]);
+    	//    radialUnitVector[celli] = radialUnitVector[celli];// / (mag(radialUnitVector[celli]) + ROOTVSMALL); //calculated radialUnitVector
+        //}   

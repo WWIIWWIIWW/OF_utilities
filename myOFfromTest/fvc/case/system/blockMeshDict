@@ -1,0 +1,126 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  5                                     |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+
+//The unit of the vertices is 1.0 meter
+convertToMeters 1.0;
+
+//A cube with the following vertex indices:
+//
+//   7-----6
+//  /|    /|
+// 4-----5 |
+// | |   | |
+// | 3---|-2
+// |/    |/
+// 0-----1
+//
+//Each vertex is of the form (x y z)
+//
+//The local coordinate system is defined by the order in which the vertices are presented in the block definition according to:
+//- the axis origin is the first entry in the block definition, vertex 0 in our example;
+//- the x direction is described by moving from vertex 0 to vertex 1;
+//- the y direction is described by moving from vertex 1 to vertex 2;
+//- vertices 0, 1, 2, 3 define the plane z
+//- vertex 4 is found by moving from vertex 0 in the z direction;
+//- vertices 5,6 and 7 are similarly found by moving in the z direction from vertices 1,2 and 3
+vertices
+(
+    (0 0 0)
+    (1 0 0)
+    (1 1 0)
+    (0 1 0)
+    (0 0 1)
+    (1 0 1)
+    (1 1 1)
+    (0 1 1)
+);
+
+//Ordered list of vertex labels and mesh size
+blocks
+(
+  hex                   //The shape is always hex, as blocks are always hexahedra
+  (0 1 2 3 4 5 6 7)     // vertex numbers
+  (1 1 1)            // numbers of cells in each direction
+  simpleGrading (1 1 1) // cell expansion ratios
+);
+
+//Used to describe arc or spline edges
+//Keyword selection | Description    | Additional entries
+//- arc             | Circular arc   | Single interpolation point
+//- simpleSpline    | Spline curve   | List of interpolation points
+//- polyLine        | Set of lines   | List of interpolation points
+//- polySpline      | Set of splines | List of interpolation points
+//- line            | Straight line  |
+edges
+(
+);
+
+//List of patches
+//Do not uncomment this 'patches' part:
+//it will result in a 'undefined faces' warning
+//patches
+//(
+  //Possible values are:
+  //- symmetryPlane
+  //- patch
+//);
+
+boundary
+(
+  //There are multiple boundary types:
+  //- movingWall:
+  //- fixedWalls:
+  //- frontAndBack: for two dimensional meshes
+  //- inlet
+  //- outlet
+  //- walls
+
+  my_cube_faces
+  {
+   //There are multiple types:
+   //- wall:
+   //- patch
+    //- cyclic
+   type patch;
+
+   //The vertices that make up the six faces of the cube
+   //
+   //Each block face is defined by a list of 4 vertex numbers.
+   //The order in which the vertices are given must be such that,
+    //looking from inside the block and starting with any vertex,
+   //the face must be traversed in a clockwise direction to define the other vertices.
+   faces
+   (
+      //bottom
+      (0 3 2 1)
+      //left
+      (0 4 7 3)
+      //front
+      (1 5 4 0)
+      //right
+      (2 6 5 1)
+      //back
+      (3 7 6 2)
+      //top
+      (4 5 6 7)
+    );
+  }
+);
+
+//List of patches to be merged
+//mergePatchPairs
+//(
+//
+//);
