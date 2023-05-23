@@ -1,3 +1,0 @@
-reactingLMFoam_Z_nonUnityLe.C
-
-EXE = $(FOAM_USER_APPBIN)/reactingLMFoam_Z_nonUnityLe
