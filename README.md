@@ -10,12 +10,6 @@ Email: Kai.Zhang.1@city.ac.uk; kaizhang@kth.se
 
 </ol>
 
-<h3> OF6_solvers (needs re-write README) </h3>
-<ol>
-<li></li>
-<pre>
-</pre>
-</ol>
 
 [//]: # (&#40;a&#41; CalcMixtureFraction: Postprocess mixture fraction.)
 
