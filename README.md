@@ -7,10 +7,7 @@ Email: Kai.Zhang.1@city.ac.uk; kaizhang@kth.se
 <pre>
     <a href="https://github.com/WWIIWWIIWW/OF_utilities/tree/main/myWallNu_rho_v2">Click Me.</a>
 </pre>
-<li>reactingLMFoam_nonUnityLe_multiOutputs:</li>
-<pre>
-    <a href="https://github.com/WWIIWWIIWW/OF_utilities/tree/main/reactingLMFoam_nonUnityLe_multiOutputs">Click Me.</a>
-</pre>
+
 </ol>
 
 <h3> OF6_solvers (needs re-write README) </h3>
